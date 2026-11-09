@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Что на ужин? Подбор рецептов из продуктов, которые есть дома</title>
+<meta name="description" content="Отметьте продукты из холодильника — сервис подберёт блюда, покажет время готовки, калорийность и составит список покупок. Бесплатно.">
+<meta property="og:title" content="Что на ужин? Рецепты из продуктов, которые есть дома">
+<meta property="og:description" content="Отметьте продукты — получите рецепты, калорийность и список покупок.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12302a;--bg:#f4f7f4;--card:#fff;--text:#1b2a26;--muted:#5a6c66;--line:#d8e1db;--acc:#2a7a4a;--acc2:#e3f1e8;--sun:#a8610a;--sun2:#fdf0d8;--hero:#12302a;--on:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e8f0ec;--bg:#101614;--card:#182019;--text:#e8f0ec;--muted:#9bada6;--line:#2b3a34;--acc:#52c283;--acc2:#1a2f23;--sun:#f0b34a;--sun2:#332a18;--hero:#0b2a22;color-scheme:dark}}
+html{font-size:17px;scroll-behavior:smooth;scroll-padding-top:70px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:1rem/1.6 "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3,.logo{font-family:"PT Serif",Georgia,"Times New Roman",serif;line-height:1.2}
+.w{max-width:1040px;margin:0 auto;padding:0 18px}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.top{position:sticky;top:0;z-index:5;background:var(--hero);color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
+.top .w{display:flex;align-items:center;gap:18px;height:56px}
+.logo{font-weight:700;font-size:1.2rem;color:#fff;text-decoration:none;margin-right:auto}
+.top nav{display:flex;gap:16px;font-size:.92rem}
+.top nav a{color:#cfe3d8;text-decoration:none}
+.top nav a:hover{color:#fff;text-decoration:underline}
+@media(max-width:640px){.top nav{display:none}}
+.hero{background:var(--hero);color:#fff;padding:44px 0 90px}
+.hero h1{font-size:clamp(1.9rem,5.5vw,3rem);margin:0 0 14px;max-width:18em;font-weight:700}
+.hero p{max-width:36em;color:#cfe3d8;margin:0 0 22px;font-size:1.08rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button,.b{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:.5rem .95rem}
+button:hover{border-color:var(--acc)}
+.b.p{background:var(--sun2);border-color:var(--sun2);color:#5b3504;font-weight:700}
+.hero .b.p{background:#f0b34a;border-color:#f0b34a;color:#2a1a02}
+.hero button:not(.p){background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.sz{margin-left:auto;display:flex;gap:6px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:-62px;box-shadow:0 8px 28px rgba(18,48,42,.12)}
+.panel h2{margin:0 0 4px;font-size:1.3rem}
+.cnt{color:var(--muted);margin:0 0 14px;font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border-radius:999px;padding:.4rem .95rem}
+.chips button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.ad{border:1px dashed var(--line);border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;margin:26px 0}
+section{margin:34px 0}
+h2.s{font-size:1.55rem;margin:0 0 12px}
+.fl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.fl button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+select{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:.48rem .6rem}
+label.o{display:flex;gap:8px;align-items:center;cursor:pointer;margin-left:auto}
+input[type=checkbox]{width:1.15rem;height:1.15rem;accent-color:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.rc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column}
+.rc h3{margin:0;font-size:1.2rem}
+.hd{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.fav{border:0;background:none;font-size:1.3rem;padding:0 .2rem;line-height:1;color:var(--muted)}
+.fav[aria-pressed=true]{color:#d6455d}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--muted);font-size:.9rem;margin:8px 0}
+.tag{font-weight:700;color:var(--acc)}
+.bd{align-self:flex-start;border-radius:6px;padding:.1rem .6rem;font-size:.88rem;font-weight:700;margin-bottom:8px}
+.bd.ok{background:var(--acc2);color:var(--acc)}
+.bd.w{background:var(--sun2);color:var(--sun)}
+.ing{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.ing span{font-size:.88rem;border:1px solid var(--line);border-radius:6px;padding:.05rem .5rem}
+.ing .y{background:var(--acc2);border-color:transparent}
+details summary{cursor:pointer;font-weight:700;color:var(--acc)}
+ol{margin:8px 0 4px;padding-left:1.3rem}
+.rc button.add{margin-top:auto;align-self:flex-start}
+.rc details{margin-bottom:12px}
+.hint{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);text-align:center}
+.shop{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;max-width:520px}
+.shop ul{margin:0 0 12px;padding:0}
+.shop li{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--line);list-style:none}
+.shop li button{padding:.1rem .6rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;counter-reset:s;padding:0;list-style:none}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;counter-increment:s}
+.steps li:before{content:counter(s);display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--acc);color:#fff;font-weight:700;margin-bottom:8px}
+.steps b{display:block;font-family:"PT Serif",serif;font-size:1.1rem}
+.aff{display:block;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--sun);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.aff small{display:block;color:var(--muted)}
+.aff:hover{border-color:var(--sun)}
+.note{font-size:.82rem;color:var(--muted);margin:0 0 10px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:8px}
+.faq p{margin:8px 0 0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.two>div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.two h3{margin:0 0 6px}
+.two p{margin:0 0 8px}
+footer{background:var(--hero);color:#cfe3d8;margin-top:50px;padding:30px 0 34px;font-size:.88rem}
+footer a{color:#fff}
+footer .w{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between}
+footer p{margin:0;max-width:46em}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 18px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="top"><div class="w"><a class="logo" href="#">Что на ужин</a>
+<nav aria-label="Разделы"><a href="#podbor">Подбор блюд</a><a href="#sel">Подборки</a><a href="#kak">Как это работает</a><a href="#faq">Вопросы</a><a href="#about">О проекте</a></nav></div></header>
+
+<div class="hero"><div class="w">
+<h1>Что приготовить из продуктов, которые уже есть дома</h1>
+<p>Отметьте содержимое холодильника — сервис покажет подходящие блюда, время приготовления, калорийность порции и подскажет, чего не хватает. Без регистрации и бесплатно.</p>
+<div class="row"><button class="b p" id="rnd">Предложить блюдо</button><button id="clr">Сбросить выбор</button>
+<div class="sz" role="group" aria-label="Размер текста"><button id="sm" aria-label="Уменьшить текст">А−</button><button id="lg" aria-label="Увеличить текст">А+</button></div></div>
+</div></div>
+
+<main class="w" id="podbor">
+<div class="panel"><h2>Что есть в холодильнике?</h2><p class="cnt" id="cnt"></p><div class="chips" id="chips"></div></div>
+
+<!-- РЕКЛАМНЫЙ БЛОК 1: вставьте код Яндекс РСЯ / AdSense -->
+<div class="ad">Рекламный блок</div>
+
+<section>
+<h2 class="s">Подходящие блюда</h2>
+<div class="fl"><div class="row" id="cats" role="group" aria-label="Категория"></div>
+<select id="tm" aria-label="Время приготовления"><option value="0">Любое время</option><option value="15">до 15 минут</option><option value="30">до 30 минут</option><option value="60">до 60 минут</option></select>
+<label class="o"><input type="checkbox" id="only"> Только из того, что есть</label></div>
+<div class="grid" id="out"></div>
+</section>
+
+<section id="shopw" hidden><h2 class="s">Список покупок</h2>
+<div class="shop"><ul id="shop"></ul><div class="row"><button class="b p" id="cp">Скопировать список</button><button id="cl">Очистить</button></div></div></section>
+
+<!-- РЕКЛАМНЫЙ БЛОК 2 -->
+<div class="ad">Рекламный блок</div>
+
+<section id="sel"><h2 class="s">Подборки рецептов</h2><div class="row"><a class="b" style="text-decoration:none" href="iz-kurici.html">Из курицы</a><a class="b" style="text-decoration:none" href="iz-kartofelya.html">Из картошки</a><a class="b" style="text-decoration:none" href="iz-farsha.html">Из фарша</a><a class="b" style="text-decoration:none" href="iz-yaic.html">Из яиц</a><a class="b" style="text-decoration:none" href="bystro.html">Быстрые блюда</a><a class="b" style="text-decoration:none" href="zavtraki.html">Завтраки</a></div></section>
+
+<section id="kak"><h2 class="s">Как это работает</h2>
+<ol class="steps"><li><b>Отметьте продукты</b>Нажмите на всё, что есть дома. Соль, перец, растительное масло и вода учитываются автоматически.</li>
+<li><b>Выберите блюдо</b>Блюда отсортированы: сначала те, для которых не нужно ничего докупать. Можно отфильтровать по времени и типу.</li>
+<li><b>Готовьте или докупите</b>Если чего-то не хватает, добавьте недостающее в список покупок одной кнопкой и скопируйте его.</li></ol></section>
+
+<section><h2 class="s">Полезные сервисы</h2>
+<p class="note">Партнёрские ссылки. Если вы сделаете заказ, сайт может получить комиссию — цена для вас не меняется.</p>
+<!-- замените href="#" на свои реферальные ссылки -->
+<a class="aff" href="#" rel="sponsored noopener" target="_blank"><b>Доставка продуктов на дом</b><small>Закажите недостающее из списка покупок и не ходите в магазин</small></a>
+<a class="aff" href="#" rel="sponsored noopener" target="_blank"><b>Кухонная посуда и техника</b><small>Сковороды, ножи, мультиварки и другие полезные мелочи</small></a></section>
+
+<section id="faq" class="faq"><h2 class="s">Частые вопросы</h2>
+<details><summary>Откуда берутся рецепты?</summary><p>Это простые домашние рецепты из недорогих продуктов. Они сокращены до основных шагов — специи и пропорции подбирайте по вкусу.</p></details>
+<details><summary>Насколько точна калорийность?</summary><p>Значения ориентировочные, на одну порцию при стандартных пропорциях. Реальная калорийность зависит от продуктов и способа приготовления.</p></details>
+<details><summary>Что значит «считаются всегда имеющимися»?</summary><p>Соль, перец, растительное масло и вода есть почти у всех, поэтому в списке продуктов их нет и они не попадают в «не хватает».</p></details>
+<details><summary>Сохраняются ли мои данные?</summary><p>Выбранные продукты, избранное и список покупок хранятся только в вашем браузере и никуда не отправляются.</p></details></section>
+
+<section id="about" class="two"><div><h3>О проекте</h3><p>«Что на ужин» — бесплатный помощник, который отвечает на вечерний вопрос «из чего приготовить?». Мы работаем над тем, чтобы рецептов становилось больше, а подбор — точнее.</p><p>Нашли ошибку или хотите предложить рецепт? Напишите нам.</p></div>
+<div><h3 id="contacts">Контакты</h3><p>Почта: <a href="mailto:whatsfordinner.support9@gmail.com">whatsfordinner.support9@gmail.com</a></p><p>Ответственность: рецепты носят информационный характер. Учитывайте аллергии и индивидуальные ограничения в питании, проверяйте сроки годности продуктов.</p></div>
+<div id="privacy"><h3>Конфиденциальность</h3><p>Сайт не требует регистрации. Настройки хранятся в вашем браузере (localStorage). Рекламные и партнёрские сервисы могут использовать файлы cookie согласно собственным политикам. <a href="privacy.html">Читать политику полностью</a>.</p></div></section>
+</main>
+
+<footer><div class="w"><p><b>Что на ужин</b> — бесплатный помощник для кухни. Рецепты упрощены и не заменяют консультацию специалиста по питанию. На сайте размещается реклама и партнёрские ссылки.</p><p>© <span id="yr"></span> Что на ужин · <a href="#about">О проекте</a> · <a href="privacy.html">Политика конфиденциальности</a> · <a href="#contacts">Контакты</a></p></div></footer>
+<div id="toast" role="status"></div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var ING="яйца,молоко,мука,картофель,лук,морковь,капуста,помидоры,огурцы,курица,фарш,макароны,рис,гречка,сыр,сметана,сливочное масло,сахар,колбаса,хлеб,чеснок,кефир,творог,яблоки,бананы,овсянка".split(",");
+var CN={"З":"Завтрак","О":"Обед","У":"Ужин","Д":"Десерт"};
+/* название|минуты|продукты|шаги|категория|ккал на порцию|порций */
+var R=`Омлет|10|яйца,молоко,сливочное масло|Взбейте яйца с молоком и солью;Разогрейте масло на сковороде;Вылейте смесь, накройте крышкой и жарьте 5 минут на слабом огне|З|260|2
+Яичница с колбасой|10|яйца,колбаса|Нарежьте колбасу кружочками и обжарьте;Разбейте сверху яйца;Жарьте до готовности белка|З|320|2
+Картофельное пюре|30|картофель,молоко,сливочное масло|Очистите и сварите картофель до мягкости;Слейте воду и разомните;Добавьте тёплое молоко и масло, взбейте|О|200|4
+Жареная картошка с луком|25|картофель,лук|Нарежьте картофель соломкой, лук полукольцами;Жарьте картофель 15 минут на среднем огне;Добавьте лук, посолите, жарьте ещё 5 минут|О|230|3
+Макароны с сыром|20|макароны,сыр,сливочное масло|Отварите макароны по инструкции;Слейте воду, добавьте масло;Посыпьте тёртым сыром и перемешайте|О|420|3
+Макароны по-флотски|30|макароны,фарш,лук|Отварите макароны;Обжарьте лук с фаршем 15 минут;Смешайте с макаронами|О|480|4
+Плов с курицей|60|рис,курица,морковь,лук,чеснок|Обжарьте курицу с луком и морковью;Добавьте промытый рис, чеснок и воду на палец выше риса;Тушите под крышкой 25 минут|О|520|4
+Гречка с курицей|40|гречка,курица,лук|Обжарьте кусочки курицы с луком;Добавьте промытую гречку и воду в пропорции 1 к 2;Варите под крышкой 20 минут|О|380|3
+Овсяная каша с бананом|10|овсянка,молоко,бананы|Варите овсянку в молоке 5–7 минут;Нарежьте банан кружочками;Выложите сверху|З|290|1
+Сырники|30|творог,яйца,мука,сахар|Смешайте творог, яйцо, сахар и 3 ложки муки;Сформируйте лепёшки;Обжарьте с двух сторон до золотистого цвета|З|240|4
+Блины|30|яйца,молоко,мука,сахар|Взбейте яйца с молоком, сахаром и щепоткой соли;Добавьте муку и перемешайте без комков;Жарьте на смазанной маслом сковороде|З|190|4
+Овощной салат|10|помидоры,огурцы,лук,сметана|Нарежьте овощи;Посолите;Заправьте сметаной|О|90|2
+Щи|50|капуста,картофель,морковь,лук|Нарежьте овощи;Варите картофель 10 минут, затем добавьте остальное;Варите ещё 20 минут|О|60|4
+Котлеты|40|фарш,лук,яйца,хлеб|Смешайте фарш, лук, яйцо и размоченный хлеб;Сформируйте котлеты;Обжарьте по 6 минут с каждой стороны|У|270|4
+Драники|30|картофель,лук,яйца,мука|Натрите картофель и лук;Добавьте яйцо, муку и соль;Жарьте оладьи до румяной корочки|У|250|3
+Тушёная капуста|40|капуста,морковь,лук|Обжарьте лук и морковь;Добавьте нашинкованную капусту;Тушите под крышкой 30 минут|У|110|4
+Куриный суп с лапшой|45|курица,макароны,картофель,морковь,лук|Сварите бульон из курицы 30 минут;Добавьте картофель, морковь и лук;За 7 минут до конца добавьте макароны|О|120|4
+Бутерброды с сыром|5|хлеб,сыр,сливочное масло|Намажьте хлеб маслом;Положите сыр;При желании подогрейте|З|240|2
+Гренки с чесноком|10|хлеб,чеснок,яйца,молоко|Взбейте яйцо с молоком;Обмакните хлеб и обжарьте;Натрите горячие гренки чесноком|З|280|2
+Оладьи на кефире|25|кефир,мука,яйца,сахар|Смешайте кефир, яйцо, сахар, муку и щепотку соды;Дайте тесту постоять 10 минут;Жарьте небольшие оладьи|З|210|4
+Запечённые яблоки|30|яблоки,сахар,сливочное масло|Вырежьте сердцевину;Положите внутрь сахар и масло;Запекайте при 180° около 20 минут|Д|140|2
+Рис с яйцом|20|рис,яйца,лук|Отварите рис;Обжарьте лук, добавьте яйца и перемешайте;Смешайте с рисом|У|330|2
+Картофельная запеканка с фаршем|60|картофель,фарш,лук,сыр|Сварите и разомните картофель;Обжарьте фарш с луком;Выложите слоями, посыпьте сыром и запекайте 25 минут при 180°|У|360|4
+Банановый коктейль|5|кефир,бананы,сахар|Нарежьте банан;Взбейте с кефиром;Добавьте сахар по вкусу|Д|160|1`.split("\n").map(function(l){var p=l.split("|");return{n:p[0],t:+p[1],i:p[2].split(","),s:p[3].split(";"),c:p[4],k:p[5],p:p[6]}});
+function ld(k,d){try{var r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var sel=ld("cu_sel",{}),shop=ld("cu_shop",[]),big=ld("cu_big",1),fav=ld("cu_fav",[]),only=false,cat="all",maxT=0;
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove("on")},1600)}
+function chips(){var c=$("chips");c.innerHTML="";
+ ING.forEach(function(x){var b=document.createElement("button");b.textContent=x;b.setAttribute("aria-pressed",!!sel[x]);
+  b.onclick=function(){if(sel[x])delete sel[x];else sel[x]=1;sv("cu_sel",sel);chips();out()};c.appendChild(b)});
+ var n=Object.keys(sel).length;$("cnt").textContent=n?"Выбрано продуктов: "+n:"Нажмите на продукты, которые есть дома"}
+function cats(){$("cats").innerHTML=[["all","Все"],["З","Завтрак"],["О","Обед"],["У","Ужин"],["Д","Десерт"],["fav","♥ Избранное"]].map(function(x){return'<button data-c="'+x[0]+'" aria-pressed="'+(cat===x[0])+'">'+x[1]+'</button>'}).join("")}
+function lvl(t){return t<=15?"Очень просто":t<=40?"Просто":"Дольше обычного"}
+function out(){
+ var n=Object.keys(sel).length,o=$("out");
+ if(!n&&cat!=="fav"){o.innerHTML='<div class="hint" style="grid-column:1/-1">Отметьте продукты выше или нажмите «Предложить блюдо».</div>';return}
+ var l=R.map(function(r){return{r:r,m:r.i.filter(function(x){return!sel[x]})}}).filter(function(o){var r=o.r;
+  if(cat==="fav")return fav.indexOf(r.n)>=0&&(!maxT||r.t<=maxT);
+  return(cat==="all"||r.c===cat)&&(!maxT||r.t<=maxT)&&o.m.length<r.i.length&&(!only||!o.m.length)});
+ l.sort(function(a,b){return a.m.length-b.m.length||a.r.t-b.r.t});
+ if(!l.length){o.innerHTML='<div class="hint" style="grid-column:1/-1">'+(cat==="fav"?"В избранном пока пусто. Нажмите ♥ на карточке блюда.":"Ничего не нашли. Добавьте продуктов, смените фильтры или уберите галочку «Только из того, что есть».")+'</div>';return}
+ o.innerHTML=l.map(function(x){var r=x.r,f=fav.indexOf(r.n)>=0;
+  return'<article class="rc"><div class="hd"><h3>'+r.n+'</h3><button class="fav" data-f="'+r.n+'" aria-pressed="'+f+'" aria-label="В избранное">'+(f?"♥":"♡")+'</button></div>'+
+  '<div class="meta"><span class="tag">'+CN[r.c]+'</span><span>'+r.t+' мин</span><span>≈ '+r.k+' ккал / порция</span><span>'+r.p+' порц.</span><span>'+lvl(r.t)+'</span></div>'+
+  (x.m.length?'<span class="bd w">Не хватает: '+x.m.join(", ")+'</span>':'<span class="bd ok">✓ Всё есть, можно готовить</span>')+
+  '<div class="ing">'+r.i.map(function(i){return'<span class="'+(sel[i]?"y":"")+'">'+(sel[i]?"✓ ":"")+i+'</span>'}).join("")+'</div>'+
+  '<details><summary>Как готовить</summary><ol>'+r.s.map(function(s){return"<li>"+s+"</li>"}).join("")+'</ol></details>'+
+  (x.m.length?'<button class="add" data-m="'+x.m.join("|")+'">+ В список покупок</button>':'')+'</article>'}).join("")}
+function shopr(){
+ $("shopw").hidden=!shop.length;
+ $("shop").innerHTML=shop.map(function(s,i){return'<li>'+s+'<button data-d="'+i+'" aria-label="Удалить '+s+'">✕</button></li>'}).join("")}
+document.addEventListener("click",function(e){var t=e.target;if(!t.dataset)return;
+ if(t.dataset.m){t.dataset.m.split("|").forEach(function(x){if(shop.indexOf(x)<0)shop.push(x)});sv("cu_shop",shop);shopr();toast("Добавлено в список покупок")}
+ if(t.dataset.d){shop.splice(+t.dataset.d,1);sv("cu_shop",shop);shopr()}
+ if(t.dataset.c){cat=t.dataset.c;cats();out()}
+ if(t.dataset.f){var i=fav.indexOf(t.dataset.f);if(i<0){fav.push(t.dataset.f);toast("Добавлено в избранное")}else fav.splice(i,1);sv("cu_fav",fav);out()}});
+$("only").onchange=function(){only=this.checked;out()};
+$("tm").onchange=function(){maxT=+this.value;out()};
+$("clr").onclick=function(){sel={};sv("cu_sel",sel);chips();out()};
+$("rnd").onclick=function(){var r=R[Math.floor(Math.random()*R.length)];sel={};r.i.forEach(function(x){sel[x]=1});sv("cu_sel",sel);cat="all";cats();chips();out();$("out").scrollIntoView({behavior:"smooth"});toast("Попробуйте: "+r.n)};
+$("cl").onclick=function(){shop=[];sv("cu_shop",shop);shopr()};
+$("cp").onclick=function(){var t="Список покупок:\n"+shop.map(function(s){return"• "+s}).join("\n");
+ try{navigator.clipboard.writeText(t).then(function(){toast("Список скопирован")},function(){prompt("Скопируйте список:",t)})}catch(x){prompt("Скопируйте список:",t)}};
+function fs(){document.documentElement.style.fontSize=[15,17,20,23][big]+"px"}
+$("sm").onclick=function(){big=Math.max(0,big-1);sv("cu_big",big);fs()};
+$("lg").onclick=function(){big=Math.min(3,big+1);sv("cu_big",big);fs()};
+if(typeof big!=="number")big=1;$("yr").textContent=new Date().getFullYear();fs();chips();cats();out();shopr();
+</script>
+<script src="site.js"></script>
+</body>
+</html>
